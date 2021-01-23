@@ -1,19 +1,19 @@
-import { ThemeOptions, createMuiTheme } from "@material-ui/core";
+import { ThemeOptions, createMuiTheme, responsiveFontSizes } from "@material-ui/core";
 
 class Theming {
     private createTheme = (): ThemeOptions => ({
         palette: {
             text: {
-                primary: "#000",
-                secondary: "#fff"
+                primary: "#006bf1",
+                secondary: "#000"
             },
             primary: {
-                main: "#000",
+                main: "#006bf1",
                 contrastText: "#fff"
             },
             secondary: {
-                main: "#fff",
-                contrastText: "#000"
+                main: "#000",
+                contrastText: "#fff"
             }
         },
         shape: {
@@ -25,9 +25,10 @@ class Theming {
         }
     })
     public getTheme = () => {
-        const theme = this.createTheme();
+        const themeOptions = this.createTheme();
+        const theme = createMuiTheme(themeOptions);
 
-        return createMuiTheme(theme);
+        return responsiveFontSizes(theme);
     }
 }
 

@@ -1,8 +1,10 @@
 import React from "react";
-import { makeStyles, Theme, Grid, Typography, Box, useTheme } from "@material-ui/core";
+import { Formik, Form, Field } from 'formik';
+import { makeStyles, Theme, Grid, Typography, Box, Button, LinearProgress } from "@material-ui/core";
+import { TextField } from "formik-material-ui";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    loginContainer: {
+    container: {
         margin: "0 auto",
         display: "flex",
         justifyContent: "center",
@@ -11,15 +13,57 @@ const useStyles = makeStyles((theme: Theme) => ({
         maxWidth: "1170px",
         padding: "0 15px",
     },
+    title: {
+        marginBottom: theme.spacing(3)
+    },
+    form: {
+        padding: theme.spacing(3),
+        border: "1px solid " + theme.palette.secondary.main,
+        borderRadius: theme.shape.borderRadius + "px"
+    },
+    formField: {
+        width: "100%",
+        padding: theme.spacing(1),
+        marginBottom: theme.spacing(3),
+    },
+    formButton: {
+        width: "100%",
+        marginBottom: theme.spacing(2)
+    }
 }));
 
+interface Values {
+    username: string;
+    password: string;
+}
+
+const validate = (values: Values): Partial<Values> => {
+    const errors: Partial<Values> = {};
+
+    if (!values.username) {
+        errors.username = 'Required';
+    } else if (!/^[a-zA-Z0-9_]*$/.test(values.username)) {
+        errors.username = 'Invalid Username';
+    }
+    if (!values.password) {
+        errors.password = 'Required';
+    }
+    else if (values.password.length < 6) {
+        errors.password = 'Password must be minimum 6 character long';
+    }
+    return errors;
+}
+
+const initialValues: Values = {
+    username: "",
+    password: ""
+}
 
 export const LoginForm: React.FC = () => {
     const classes = useStyles();
-    console.log(useTheme());
 
     return (
-        <Box className={classes.loginContainer}>
+        <Box className={classes.container}>
             <Grid
                 container
                 justify="center"
@@ -32,7 +76,55 @@ export const LoginForm: React.FC = () => {
                     md={6}
                     lg={5}
                 >
-                    <Typography align="center" variant="h2">Login</Typography>
+                    <Box className={classes.form}>
+                        <Typography align="center" variant="h2" paragraph >Login</Typography>
+                        <Formik
+                            initialValues={initialValues}
+                            validate={validate}
+                            onSubmit={(values, { setSubmitting }) => {
+                                setTimeout(() => {
+                                    setSubmitting(false);
+                                    alert(JSON.stringify(values, null, 2));
+                                }, 500);
+                            }}
+                        >
+                            {({ submitForm, isSubmitting }) => (
+                                <Form>
+                                    <Field
+                                        type="text"
+                                        name="username"
+                                        label="Username"
+                                        className={classes.formField}
+                                        component={TextField}
+                                    />
+                                    <Field
+                                        type="password"
+                                        name="password"
+                                        label="Password"
+                                        className={classes.formField}
+                                        component={TextField}
+                                    />
+                                    {isSubmitting && <LinearProgress />}
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        disabled={isSubmitting}
+                                        onClick={submitForm}
+                                        className={classes.formButton}
+                                    >
+                                        Login
+                                    </Button>
+                                    <Button
+                                        variant="outlined"
+                                        color="primary"
+                                        className={classes.formButton}
+                                    >
+                                        Sign Up
+                                    </Button>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Box>
                 </Grid>
             </Grid>
         </Box>
