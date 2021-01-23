@@ -1,2 +1,1 @@
-import React from "react";
-export { LoginForm } from "./Auth";
+export { LoginForm, RegisterForm } from "./Auth";
