@@ -1,19 +1,19 @@
 import { ThemeOptions, createMuiTheme } from "@material-ui/core";
 
 class Theming {
-    public getTheme = (): ThemeOptions => ({
+    private createTheme = (): ThemeOptions => ({
         palette: {
             text: {
-                primary: "black",
-                secondary: "white"
+                primary: "#000",
+                secondary: "#fff"
             },
             primary: {
-                main: "black",
-                contrastText: "white"
+                main: "#000",
+                contrastText: "#fff"
             },
             secondary: {
-                main: "white",
-                contrastText: "black"
+                main: "#fff",
+                contrastText: "#000"
             }
         },
         shape: {
@@ -24,6 +24,11 @@ class Theming {
             fontSize: 16
         }
     })
+    public getTheme = () => {
+        const theme = this.createTheme();
+
+        return createMuiTheme(theme);
+    }
 }
 
 export const themeService = new Theming();
