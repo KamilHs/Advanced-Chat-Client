@@ -32,13 +32,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-interface Values {
+interface IValues {
     username: string;
     password: string;
 }
 
-const validate = (values: Values): Partial<Values> => {
-    const errors: Partial<Values> = {};
+const initialValues: IValues = {
+    username: "",
+    password: ""
+}
+
+const validate = (values: IValues): Partial<IValues> => {
+    const errors: Partial<IValues> = {};
 
     if (!values.username) {
         errors.username = 'Required';
@@ -54,10 +59,6 @@ const validate = (values: Values): Partial<Values> => {
     return errors;
 }
 
-const initialValues: Values = {
-    username: "",
-    password: ""
-}
 
 export const LoginForm: React.FC = () => {
     const classes = useStyles();
