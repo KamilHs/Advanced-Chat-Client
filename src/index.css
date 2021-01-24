@@ -3,3 +3,14 @@ a:hover,
 a:active {
     text-decoration: none;
 }
+
+*::-webkit-scrollbar {
+    width: 0.5rem;
+}
+*::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+}

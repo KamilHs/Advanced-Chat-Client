@@ -7,12 +7,23 @@ import { AUTH_ROUTES } from "../../../";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
+        [theme.breakpoints.up('xs')]: {
+            maxWidth: "540px",
+        },
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: "720px",
+        },
+        [theme.breakpoints.up('md')]: {
+            maxWidth: "960px",
+        },
+        [theme.breakpoints.up('lg')]: {
+            maxWidth: "1170px",
+        },
         margin: "0 auto",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        maxWidth: "1170px",
         padding: "0 15px",
     },
     title: {

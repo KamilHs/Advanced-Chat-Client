@@ -2,6 +2,7 @@ import { ThemeOptions, createMuiTheme, responsiveFontSizes } from "@material-ui/
 
 class Theming {
     private createTheme = (): ThemeOptions => ({
+
         palette: {
             text: {
                 primary: "#006bf1",
@@ -22,7 +23,7 @@ class Theming {
         typography: {
             fontFamily: ["Roboto", "sans-serif"].join(","),
             fontSize: 16
-        }
+        },
     })
     public getTheme = () => {
         const themeOptions = this.createTheme();

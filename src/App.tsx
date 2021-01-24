@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, StylesProvider, ThemeProvider } from "@material-ui/core";
 import { themeService } from "./theming/";
-import { AuthRoutes } from "./modules/Auth/";
+import { Routes } from "./routes";
+
 
 const theme = themeService.getTheme();
 
@@ -12,9 +12,7 @@ function App() {
       <StylesProvider>
         <CssBaseline />
         <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <AuthRoutes />
-          </BrowserRouter>
+          <Routes />
         </ThemeProvider>
       </StylesProvider>
     </React.Suspense>
