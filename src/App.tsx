@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, StylesProvider, ThemeProvider } from "@material-ui/core";
 import { themeService } from "./theming/";
-import Auth from "./pages/Auth";
+import { AuthRoutes } from "./modules/Auth/routes";
 
 const theme = themeService.getTheme();
 
@@ -13,7 +13,7 @@ function App() {
         <CssBaseline />
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <Auth />
+            <AuthRoutes />
           </BrowserRouter>
         </ThemeProvider>
       </StylesProvider>
