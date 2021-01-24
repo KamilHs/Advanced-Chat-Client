@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, StylesProvider, ThemeProvider } from "@material-ui/core";
 import { themeService } from "./theming/";
 import Auth from "./pages/Auth";
@@ -11,7 +12,9 @@ function App() {
       <StylesProvider>
         <CssBaseline />
         <ThemeProvider theme={theme}>
-          <Auth />
+          <BrowserRouter>
+            <Auth />
+          </BrowserRouter>
         </ThemeProvider>
       </StylesProvider>
     </React.Suspense>

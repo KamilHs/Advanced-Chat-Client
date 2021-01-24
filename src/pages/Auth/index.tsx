@@ -1,9 +1,9 @@
 import React from "react";
-import { LoginForm } from "../../modules";
+import { AuthRoutes } from "../../modules/Auth/routes";
 
 const Auth: React.FC = () => {
     return (
-        <LoginForm />
+        <AuthRoutes />
     );
 }
 

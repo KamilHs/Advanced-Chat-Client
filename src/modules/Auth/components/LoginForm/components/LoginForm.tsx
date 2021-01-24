@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form, Field } from 'formik';
 import { makeStyles, Theme, Grid, Typography, Box, Button, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
+import { Link } from "react-router-dom";
+import { AUTH_ROUTES } from "../../../routes/const";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
@@ -78,7 +80,7 @@ export const LoginForm: React.FC = () => {
                     lg={5}
                 >
                     <Box className={classes.form}>
-                        <Typography align="center" variant="h2" paragraph >Login</Typography>
+                        <Typography align="center" variant="h3" paragraph >Login</Typography>
                         <Formik
                             initialValues={initialValues}
                             validate={validate}
@@ -115,13 +117,15 @@ export const LoginForm: React.FC = () => {
                                     >
                                         Login
                                     </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        className={classes.formButton}
-                                    >
-                                        Sign Up
-                                    </Button>
+                                    <Link to={AUTH_ROUTES.REGISTER}>
+                                        <Button
+                                            variant="outlined"
+                                            color="primary"
+                                            className={classes.formButton}
+                                        >
+                                            Register
+                                        </Button>
+                                    </Link>
                                 </Form>
                             )}
                         </Formik>

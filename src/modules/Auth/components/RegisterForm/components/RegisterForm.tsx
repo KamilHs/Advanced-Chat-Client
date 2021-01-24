@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form, Field } from 'formik';
 import { makeStyles, Theme, Grid, Typography, Box, Button, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
+import { AUTH_ROUTES } from "../../../routes/const";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
@@ -95,7 +97,7 @@ export const RegisterForm: React.FC = () => {
                     lg={5}
                 >
                     <Box className={classes.form}>
-                        <Typography align="center" variant="h2" paragraph >Login</Typography>
+                        <Typography align="center" variant="h3" paragraph >Register</Typography>
                         <Formik
                             initialValues={initialValues}
                             validate={validate}
@@ -130,8 +132,8 @@ export const RegisterForm: React.FC = () => {
                                         component={TextField}
                                     />
                                     <Field
-                                        type="confirm_password"
-                                        name="confirm_password"
+                                        type="password"
+                                        name="confirmPassword"
                                         label="Confirm Password"
                                         className={classes.formField}
                                         component={TextField}
@@ -146,20 +148,22 @@ export const RegisterForm: React.FC = () => {
                                     >
                                         Sign Up
                                     </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        className={classes.formButton}
-                                    >
-                                        Login
-                                    </Button>
+                                    <Link to={AUTH_ROUTES.LOGIN}>
+                                        <Button
+                                            variant="outlined"
+                                            color="primary"
+                                            className={classes.formButton}
+                                        >
+                                            Login
+                                        </Button>
+                                    </Link>
                                 </Form>
                             )}
                         </Formik>
                     </Box>
                 </Grid>
             </Grid>
-        </Box>
+        </Box >
     )
 }
 
