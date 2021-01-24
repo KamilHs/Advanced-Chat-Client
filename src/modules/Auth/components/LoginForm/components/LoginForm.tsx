@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { makeStyles, Theme, Grid, Typography, Box, Button, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Link } from "react-router-dom";
-import { AUTH_ROUTES } from "../../../routes/const";
+import { AUTH_ROUTES } from "../../../";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {

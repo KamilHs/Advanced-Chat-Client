@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, StylesProvider, ThemeProvider } from "@material-ui/core";
 import { themeService } from "./theming/";
-import { AuthRoutes } from "./modules/Auth/routes";
+import { AuthRoutes } from "./modules/Auth/";
 
 const theme = themeService.getTheme();
 
