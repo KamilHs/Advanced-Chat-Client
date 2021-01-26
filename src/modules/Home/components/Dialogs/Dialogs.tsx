@@ -2,7 +2,8 @@ import { Box, makeStyles, Theme } from "@material-ui/core";
 import React from "react";
 import { DialogItem } from "./DialogItem";
 import { IMessage, MessageStatus } from "../Chat/Messages/Messages";
-import { format } from 'date-fns'
+import format from 'date-fns/format';
+import isToday from "date-fns/isToday";
 
 
 export interface IDialog {
@@ -15,7 +16,7 @@ const dialogs: IDialog[] = [
             content: "Salam varam",
             isOwn: true,
             status: MessageStatus.seen,
-            date: format(new Date(1611676402437 - 10000000), "HH:mm"),
+            date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
             author: {
                 avatar: null,
                 username: "Kamil Salimli",
@@ -28,7 +29,7 @@ const dialogs: IDialog[] = [
             content: "Salam varaasdddddddddddsdsdsdddasdasdsadsadsadasdsadasdadasdasdadasdm",
             isOwn: true,
             status: MessageStatus.seen,
-            date: format(new Date(1611676402437 - 10000000), "HH:mm"),
+            date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
             author: {
                 avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
                 username: "Kamil Salimli",
