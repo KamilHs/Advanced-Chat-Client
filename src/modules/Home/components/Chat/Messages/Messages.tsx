@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) => (
     {
         container: {
             padding: theme.spacing(2),
+            flexGrow: 2
         }
     }
 ));
