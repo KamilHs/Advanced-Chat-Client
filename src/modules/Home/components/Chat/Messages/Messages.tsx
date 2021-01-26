@@ -12,7 +12,9 @@ export enum MessageStatus {
 
 export interface IAuthor {
     avatar: string | null,
-    username: string
+    username: string,
+    isAuthorOnline: boolean
+
 }
 
 export interface IMessage {
@@ -27,6 +29,7 @@ const messages: IMessage[] = [
     {
         author: {
             username: "Kamil Salimli",
+            isAuthorOnline: false,
             avatar: "https://png.pngtree.com/png-vector/20190704/ourmid/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg"
         },
         date: format(new Date(1611676402437 - 10000000), "HH:mm"),
@@ -37,6 +40,7 @@ const messages: IMessage[] = [
     {
         author: {
             username: "Kamil Salimli",
+            isAuthorOnline: true,
             avatar: "https://png.pngtree.com/png-vector/20190704/ourmid/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg"
         },
         date: format(new Date(1611676402437 - 10000000), "HH:mm"),

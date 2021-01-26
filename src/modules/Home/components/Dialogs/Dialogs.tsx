@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 
 
 export interface IDialog {
-    lastMessage: IMessage
+    lastMessage: IMessage,
 }
 
 const dialogs: IDialog[] = [
@@ -17,8 +17,9 @@ const dialogs: IDialog[] = [
             status: MessageStatus.seen,
             date: format(new Date(1611676402437 - 10000000), "HH:mm"),
             author: {
-                avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
+                avatar: null,
                 username: "Kamil Salimli",
+                isAuthorOnline: false
             }
         }
     },
@@ -31,6 +32,7 @@ const dialogs: IDialog[] = [
             author: {
                 avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
                 username: "Kamil Salimli",
+                isAuthorOnline: true
             }
         }
     },

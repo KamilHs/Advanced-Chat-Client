@@ -27,8 +27,10 @@ const useStyles = makeStyles((theme: Theme) => (
         },
         onlineMark: {
             position: "absolute",
-            width: "10px",
-            height: "10px",
+            width: theme.spacing(1.5),
+            height: theme.spacing(1.5),
+            borderRadius: "50%",
+            backgroundColor: "#13ad58",
             border: "2px solid #fff",
             right: 0,
             bottom: 0
@@ -71,6 +73,7 @@ export const DialogItem: React.FC<IProp> = ({ dialog }) => {
                     ? <Avatar src={dialog.lastMessage.author.avatar} alt={dialog.lastMessage.author.username} />
                     : <Avatar>{dialog.lastMessage.author.username.charAt(0)}</Avatar>
                 }
+                {dialog.lastMessage.author.isAuthorOnline && <Box className={classes.onlineMark}></Box>}
             </Box>
             <Box className={classes.infoContainer}>
                 <Box

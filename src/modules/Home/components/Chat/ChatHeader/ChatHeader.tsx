@@ -12,8 +12,19 @@ const useStyles = makeStyles((theme: Theme) => (
             padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
             borderBottom: "1px solid #d0d0d0",
         },
-        author: {
-            marginLeft: theme.spacing(1)
+        avatarContainer: {
+            position: "relative",
+            marginRight: theme.spacing(1)
+        },
+        onlineMark: {
+            position: "absolute",
+            width: theme.spacing(1.5),
+            height: theme.spacing(1.5),
+            borderRadius: "50%",
+            backgroundColor: "#13ad58",
+            border: "2px solid #fff",
+            right: 0,
+            bottom: 0
         },
         icon: {
             cursor: "pointer"
@@ -32,8 +43,11 @@ export const ChatHeader: React.FC = () => {
                 display="flex"
                 alignItems="center"
             >
-                <Avatar src="https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg" alt="avatar" />
-                <Typography className={classes.author} variant="body1">Kamil Salimli</Typography>
+                <Box className={classes.avatarContainer}>
+                    <Avatar src="https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg" alt="avatar" />
+                    <Box className={classes.onlineMark}></Box>
+                </Box>
+                <Typography variant="body1">Kamil Salimli</Typography>
             </Box>
             <Box>
                 <SearchIcon color="disabled" className={classes.icon} />
