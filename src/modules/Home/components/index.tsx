@@ -2,9 +2,15 @@ import React from "react";
 import { Grid, makeStyles, Theme, Box } from "@material-ui/core";
 
 import { Dialogs } from "./Dialogs/Dialogs";
+import { Chat } from "./Chat/Chat";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
+        margin: "0 auto",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        boxShadow: "0 0 5px 0 #afafaf",
         [theme.breakpoints.up('xs')]: {
             maxWidth: "540px",
         },
@@ -13,16 +19,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
         [theme.breakpoints.up('md')]: {
             maxWidth: "960px",
+            height: "calc(100vh - 40px)",
+            margin: "20px auto",
         },
         [theme.breakpoints.up('lg')]: {
             maxWidth: "1170px",
         },
-        margin: "0 auto",
-        display: "flex",
-        justifyContent: "center",
-        height: "100vh",
-        maxHeight: "100vh",
-        padding: "30px 15px",
+
     },
     h100: {
         maxHeight: "100%"
@@ -55,6 +58,7 @@ export const Inbox: React.FC = () => {
                     md={8}
                     lg={9}
                 >
+                    <Chat />
                 </Grid>
             </Grid>
         </Box>

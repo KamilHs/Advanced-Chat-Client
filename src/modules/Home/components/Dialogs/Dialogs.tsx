@@ -1,48 +1,47 @@
 import { Box, makeStyles, Theme } from "@material-ui/core";
 import React from "react";
 import { DialogItem } from "./DialogItem";
+import { IMessage, MessageStatus } from "../Chat/Messages/Messages";
+import { format } from 'date-fns'
 
-export enum MessageStatus {
-    sent = "Sent",
-    received = "Received",
-    seen = "Seen",
-}
 
 export interface IDialog {
-    avatar: string | null,
-    username: string,
-    lastMessage: {
-        content: string,
-        isOwn: boolean,
-        status: MessageStatus
-    }
+    lastMessage: IMessage
 }
 
 const dialogs: IDialog[] = [
     {
-        avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
-        username: "Kamil Salimli",
         lastMessage: {
             content: "Salam varam",
             isOwn: true,
-            status: MessageStatus.seen
+            status: MessageStatus.seen,
+            date: format(new Date(1611676402437 - 10000000), "HH:mm"),
+            author: {
+                avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
+                username: "Kamil Salimli",
+            }
         }
     },
     {
-        avatar: null,
-        username: "Kamil Salimli",
         lastMessage: {
-            content: "Salam varam lorem ipsum dolor bla bla bla kakakakakakdolor bla bla bla kakakakakak",
+            content: "Salam varaasdddddddddddsdsdsdddasdasdsadsadsadasdsadasdadasdasdadasdm",
             isOwn: true,
-            status: MessageStatus.seen
+            status: MessageStatus.seen,
+            date: format(new Date(1611676402437 - 10000000), "HH:mm"),
+            author: {
+                avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
+                username: "Kamil Salimli",
+            }
         }
-    }
+    },
 ];
 
 const useStyles = makeStyles((theme: Theme) => (
     {
         container: {
+            height: "100%",
             maxHeight: "100%",
+            borderRight: "1px solid #d0d0d0",
             overflowY: "auto"
         }
     }
@@ -53,7 +52,7 @@ export const Dialogs: React.FC = () => {
     const classes = useStyles();
     return (
         <Box className={classes.container}> {
-            dialogs.map((dialog, index) => <DialogItem key={Math.random() * (index + 1) + dialog.username} dialog={dialog} />)
+            dialogs.map((dialog, index) => <DialogItem key={Math.random() * (index + 1) + dialog.lastMessage.author.username} dialog={dialog} />)
         }
         </Box>
     );

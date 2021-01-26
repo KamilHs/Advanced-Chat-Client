@@ -6,5 +6,5 @@ import { HOME_ROUTES } from "./const";
 
 
 export const HomeRoutes: React.FC = () => {
-    return <Route path={[HOME_ROUTES.MAIN, HOME_ROUTES.INBOX]} component={Inbox} />;
+    return <Route path={[HOME_ROUTES.MAIN, HOME_ROUTES.INBOX]} component={Inbox} exact />;
 }

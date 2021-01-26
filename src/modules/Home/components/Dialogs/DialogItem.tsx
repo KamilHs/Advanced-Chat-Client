@@ -64,13 +64,12 @@ const useStyles = makeStyles((theme: Theme) => (
 
 export const DialogItem: React.FC<IProp> = ({ dialog }) => {
     const classes = useStyles();
-    console.log(useTheme().breakpoints)
     return (
         <Box className={classes.dialog}>
             <Box className={classes.avatarContainer}>
-                {dialog.avatar
-                    ? <Avatar src={dialog.avatar} alt={dialog.username} />
-                    : <Avatar>{dialog.username.charAt(0)}</Avatar>
+                {dialog.lastMessage.author.avatar
+                    ? <Avatar src={dialog.lastMessage.author.avatar} alt={dialog.lastMessage.author.username} />
+                    : <Avatar>{dialog.lastMessage.author.username.charAt(0)}</Avatar>
                 }
             </Box>
             <Box className={classes.infoContainer}>
@@ -80,8 +79,8 @@ export const DialogItem: React.FC<IProp> = ({ dialog }) => {
                     alignItems="flex-start"
                     width="100%"
                 >
-                    <Typography variant="body1">{dialog.username}</Typography>
-                    <Typography className={classes.date} variant="subtitle1">10:23</Typography>
+                    <Typography variant="body1">{dialog.lastMessage.author.username}</Typography>
+                    <Typography className={classes.date} variant="subtitle1">{dialog.lastMessage.date}</Typography>
                 </Box>
                 <Typography noWrap className={classes.content} variant="subtitle1">{dialog.lastMessage.content}</Typography>
             </Box>
