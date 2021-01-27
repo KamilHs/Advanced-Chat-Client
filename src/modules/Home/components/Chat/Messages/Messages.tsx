@@ -11,6 +11,7 @@ export enum MessageStatus {
 }
 
 export interface IAuthor {
+    id: string,
     avatar: string | null,
     username: string,
     isAuthorOnline: boolean
@@ -18,6 +19,7 @@ export interface IAuthor {
 }
 
 export interface IMessage {
+    id: string,
     author: IAuthor,
     date: string,
     content: string | File,
@@ -27,7 +29,9 @@ export interface IMessage {
 
 const messages: IMessage[] = [
     {
+        id: Math.random().toString(),
         author: {
+            id: Math.random().toString(),
             username: "Kamil Salimli",
             isAuthorOnline: false,
             avatar: "https://png.pngtree.com/png-vector/20190704/ourmid/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg"
@@ -38,7 +42,9 @@ const messages: IMessage[] = [
         status: MessageStatus.seen
     },
     {
+        id: Math.random().toString(),
         author: {
+            id: Math.random().toString(),
             username: "Kamil Salimli",
             isAuthorOnline: true,
             avatar: "https://png.pngtree.com/png-vector/20190704/ourmid/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg"
