@@ -1,5 +1,5 @@
 import React from "react";
-import { Theme, Box, makeStyles, Typography, Avatar, useTheme } from "@material-ui/core"
+import { Theme, Box, makeStyles, Typography, Avatar } from "@material-ui/core"
 
 import { IDialog } from "./Dialogs";
 
