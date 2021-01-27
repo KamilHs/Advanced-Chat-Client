@@ -1,10 +1,12 @@
 import React from "react";
 import { makeStyles, Theme, Typography, Box, Avatar } from "@material-ui/core";
-
-import { IMessage } from "./Messages";
+import DoneIcon from '@material-ui/icons/Done';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import { IMessage, MessageStatus } from "./Messages";
 
 interface IProp {
     message: IMessage;
+    ownId: string
 }
 
 const useStyles = makeStyles((theme: Theme) => (
@@ -36,26 +38,25 @@ const useStyles = makeStyles((theme: Theme) => (
         },
         ownBubble: {
             border: "1px solid lightgrey",
-            borderRadius: `${theme.shape.borderRadius * 2}px ${theme.shape.borderRadius * 2}px 0 ${theme.shape.borderRadius * 2}px`,
+            borderRadius: `${theme.shape.borderRadius * 5}px ${theme.shape.borderRadius * 5}px 0 ${theme.shape.borderRadius * 5}px`,
         },
         notOwnBubble: {
             color: "#fff",
             backgroundColor: theme.palette.primary.main,
-            borderRadius: `${theme.shape.borderRadius * 2}px ${theme.shape.borderRadius * 2}px  ${theme.shape.borderRadius * 2}px 0`,
+            borderRadius: `${theme.shape.borderRadius * 5}px ${theme.shape.borderRadius * 5}px  ${theme.shape.borderRadius * 5}px 0`,
         },
         date: {
-            display: "block",
-            position: "absolute",
-            top: "100%",
             fontSize: "0.8rem",
             color: "grey",
         },
         ownDate: {
+            marginLeft: theme.spacing(1),
             right: 0
         },
         notOwnDate: {
+            position: "absolute",
+            top: "100%",
             left: 0
-
         },
         avatarContainer: {
             display: "flex",
@@ -77,16 +78,16 @@ const useStyles = makeStyles((theme: Theme) => (
     }
 ));
 
-export const Message: React.FC<IProp> = ({ message }) => {
+export const Message: React.FC<IProp> = ({ message, ownId }) => {
     const classes = useStyles();
     return (
-        <Box className={[classes.message, message.isOwn
+        <Box className={[classes.message, message.author.id === ownId
             ? classes.ownMessage
             : classes.notOwnMessage].join(" ")}>
-            <Box className={[classes.content, message.isOwn
+            <Box className={[classes.content, message.author.id === ownId
                 ? classes.ownContent
                 : classes.notOwnContent].join(" ")}>
-                <Box className={[classes.avatarContainer, message.isOwn
+                <Box className={[classes.avatarContainer, message.author.id === ownId
                     ? classes.ownAvatarContainer
                     : classes.notOwnAvatarContainer].join(" ")}>
                     {message.author.avatar
@@ -95,14 +96,30 @@ export const Message: React.FC<IProp> = ({ message }) => {
                     }
                 </Box>
                 <Box className={classes.textContainer}>
-                    <Box className={[classes.bubble, message.isOwn
+                    <Box className={[classes.bubble, message.author.id === ownId
                         ? classes.ownBubble
                         : classes.notOwnBubble].join(" ")}>
                         <Typography variant="body1">{message.content}</Typography>
                     </Box>
-                    <Typography className={[classes.date, message.isOwn
-                        ? classes.ownDate
-                        : classes.notOwnDate].join(" ")} variant="subtitle1">{message.date}</Typography>
+                    <Box
+
+                        display="flex"
+                        justifyContent="flex-end"
+                    >
+                        {message.author.id === ownId &&
+                            (message.status === MessageStatus.sent
+                                ? <DoneIcon color="disabled" fontSize="small" />
+                                : message.status === MessageStatus.received
+                                    ? <DoneAllIcon color="disabled" fontSize="small" />
+                                    : <DoneAllIcon color="primary" fontSize="small" />
+                            )
+                        }
+                        <Typography className={[classes.date, message.author.id === ownId
+                            ? classes.ownDate
+                            : classes.notOwnDate].join(" ")} variant="subtitle1">
+                            {message.date}
+                        </Typography>
+                    </Box>
                 </Box>
             </Box>
         </Box>

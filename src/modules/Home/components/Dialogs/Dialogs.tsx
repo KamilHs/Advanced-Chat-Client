@@ -17,7 +17,6 @@ const dialogs: IDialog[] = [
         lastMessage: {
             id: Math.random().toString(),
             content: "Salam varam",
-            isOwn: true,
             status: MessageStatus.seen,
             date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
             author: {
@@ -34,11 +33,25 @@ const dialogs: IDialog[] = [
         lastMessage: {
             id: Math.random().toString(),
             content: "Salam varaasdddddddddddsdsdsdddasdasdsadsadsadasdsadasdadasdasdadasdm",
-            isOwn: true,
             status: MessageStatus.seen,
             date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
             author: {
                 id: Math.random().toString(),
+                avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
+                username: "Kamil Salimli",
+                isAuthorOnline: true
+            }
+        }
+    },
+    {
+        id: Math.random().toString(),
+        lastMessage: {
+            id: Math.random().toString(),
+            content: "Salam varaasdddddddddddsdsdsdddasdasdsadsadsadasdsadasdadasdasdadasdm",
+            status: MessageStatus.seen,
+            date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
+            author: {
+                id: "1",
                 avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
                 username: "Kamil Salimli",
                 isAuthorOnline: true
@@ -63,7 +76,12 @@ export const Dialogs: React.FC = () => {
     const classes = useStyles();
     return (
         <Box className={classes.container}> {
-            dialogs.map((dialog, index) => <DialogItem key={Math.random() * (index + 1) + dialog.lastMessage.author.username} dialog={dialog} />)
+            dialogs.map((dialog, index) =>
+                <DialogItem
+                    key={Math.random() * (index + 1) + dialog.lastMessage.author.username}
+                    dialog={dialog}
+                    ownId={"1"} />
+            )
         }
         </Box>
     );
