@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => (
         dialog: {
             padding: theme.spacing(1),
             cursor: "pointer",
-            paddingBottom: theme.spacing(2),
             width: "100%",
             display: "flex",
             alignItems: "flex-start",
