@@ -67,8 +67,8 @@ export const Messages: React.FC = () => {
     return (
         <Box className={classes.container}>
             {
-                messages.map((message, index) => (
-                    <Message key={Math.random() * (index + 1) + message.date + message.author.username} message={message} ownId={"1"} />
+                messages.map((message) => (
+                    <Message key={message.id} message={message} ownId={"1"} />
                 ))
             }
         </Box>

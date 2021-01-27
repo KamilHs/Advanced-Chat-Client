@@ -76,9 +76,9 @@ export const Dialogs: React.FC = () => {
     const classes = useStyles();
     return (
         <Box className={classes.container}> {
-            dialogs.map((dialog, index) =>
+            dialogs.map((dialog) =>
                 <DialogItem
-                    key={Math.random() * (index + 1) + dialog.lastMessage.author.username}
+                    key={dialog.id}
                     dialog={dialog}
                     ownId={"1"} />
             )
