@@ -1,1 +1,0 @@
-export { LoginForm, RegisterForm } from "./Auth";
