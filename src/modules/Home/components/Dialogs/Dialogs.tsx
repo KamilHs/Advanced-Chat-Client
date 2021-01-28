@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, makeStyles, TextField, Theme } from "@material-ui/core";
+import { Box, makeStyles, TextField, Theme, Typography } from "@material-ui/core";
 import format from 'date-fns/format';
 import isToday from "date-fns/isToday";
 import SearchIcon from '@material-ui/icons/Search';
+import SpeakerNotesOffOutlinedIcon from '@material-ui/icons/SpeakerNotesOffOutlined';
 
 import { DialogItem } from "./DialogItem";
 import { IMessage, MessageStatus } from "../Chat/Messages/Messages";
@@ -98,6 +99,19 @@ const useStyles = makeStyles((theme: Theme) => (
             right: "0",
             marginRight: theme.spacing(2),
             transform: "translateY(-50%)",
+        },
+        noDialogNotification: {
+            marginTop: theme.spacing(2),
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+        },
+        noDialogNotificationIcon: {
+            fontSize: theme.spacing(10)
+        },
+        noDialogNotificationText: {
+            marginTop: theme.spacing(1),
+            color: "#b9b9b9"
         }
     }
 ));
@@ -130,12 +144,17 @@ export const Dialogs: React.FC = () => {
                 <SearchIcon color="disabled" fontSize="small" className={classes.searchIcon} />
             </Box>
             {
-                filtered.map((dialog) =>
-                    <DialogItem
-                        key={dialog.id}
-                        dialog={dialog}
-                        ownId={"1"} />
-                )
+                filtered.length !== 0
+                    ? filtered.map((dialog) =>
+                        <DialogItem
+                            key={dialog.id}
+                            dialog={dialog}
+                            ownId={"1"} />
+                    )
+                    : <Box className={classes.noDialogNotification}>
+                        <SpeakerNotesOffOutlinedIcon color="disabled" className={classes.noDialogNotificationIcon} />
+                        <Typography variant="body1" className={classes.noDialogNotificationText}>No Dialog Found</Typography>
+                    </Box>
             }
         </Box>
     );
