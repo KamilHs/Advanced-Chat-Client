@@ -109,7 +109,6 @@ export const Dialogs: React.FC = () => {
     const [filtered, setFiltered] = React.useState<IDialog[]>(dialogs);
 
     React.useEffect(() => {
-        console.log(searchValue);
         setFiltered(
             dialogs.filter((dialog) => (
                 dialog.lastMessage.author.username
