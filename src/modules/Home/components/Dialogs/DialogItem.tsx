@@ -3,6 +3,7 @@ import { Theme, Box, makeStyles, Typography, Avatar } from "@material-ui/core"
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
+import { stringToColor, getContrastColor } from "../../../../utils/color";
 import { IDialog } from "./Dialogs";
 import { MessageStatus } from "../Chat/Messages/Messages";
 
@@ -77,13 +78,26 @@ const useStyles = makeStyles((theme: Theme) => (
 
 export const DialogItem: React.FC<IProp> = ({ dialog, ownId }) => {
     const classes = useStyles();
+    let bgColor: string = dialog.lastMessage.author.avatar === null
+        ? stringToColor(dialog.lastMessage.author.username)
+        : "";
     return (
         <Box className={classes.dialog}>
             <Box className={classes.wrapper}>
                 <Box className={classes.avatarContainer}>
-                    {dialog.lastMessage.author.avatar
-                        ? <Avatar src={dialog.lastMessage.author.avatar} alt={dialog.lastMessage.author.username} />
-                        : <Avatar>{dialog.lastMessage.author.username.charAt(0)}</Avatar>
+                    {dialog.lastMessage.author.avatar !== null
+                        ? <Avatar
+                            src={dialog.lastMessage.author.avatar}
+                            alt={dialog.lastMessage.author.username}
+                        />
+                        : <Avatar
+                            style={{
+                                backgroundColor: bgColor,
+                                color: getContrastColor(bgColor)
+                            }}
+                        >
+                            {dialog.lastMessage.author.username.charAt(0)}
+                        </Avatar>
                     }
                     {dialog.lastMessage.author.isAuthorOnline && <Box className={classes.onlineMark}></Box>}
                 </Box>
