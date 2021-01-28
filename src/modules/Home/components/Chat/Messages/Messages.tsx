@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, makeStyles, Theme } from "@material-ui/core";
-import { format } from 'date-fns'
+import { Box, makeStyles, Theme, Typography } from "@material-ui/core";
+import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
+import { format } from "date-fns";
 
 import { Message } from "./MessageItem";
 
@@ -56,8 +57,22 @@ const messages: IMessage[] = [
 const useStyles = makeStyles((theme: Theme) => (
     {
         container: {
+            position: "relative",
             padding: theme.spacing(2),
             flexGrow: 2
+        },
+        noChatNotification: {
+            textAlign: "center",
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%,-50%)",
+        },
+        noChatNotificationIcon: {
+            fontSize: theme.spacing(10)
+        },
+        noChatNotificationText: {
+            color: "#b9b9b9"
         }
     }
 ));
@@ -67,9 +82,15 @@ export const Messages: React.FC = () => {
     return (
         <Box className={classes.container}>
             {
-                messages.map((message) => (
-                    <Message key={message.id} message={message} ownId={"1"} />
-                ))
+                messages.length > 0
+                    ? messages.map((message) => (
+                        <Message key={message.id} message={message} ownId={"1"} />
+                    ))
+                    :
+                    <Box className={classes.noChatNotification}>
+                        <ChatBubbleOutlineOutlinedIcon color="disabled" className={classes.noChatNotificationIcon} />
+                        <Typography className={classes.noChatNotificationText} variant="body1">Choose a chat</Typography>
+                    </Box>
             }
         </Box>
     )
