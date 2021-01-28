@@ -55,10 +55,11 @@ const useStyles = makeStyles((theme: Theme) => (
 export const ChatInput: React.FC = () => {
     const [message, setMessage] = React.useState<string>("");
     const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (message === "")
-            setMessage(e.target.value.trim());
-        else
-            setMessage(e.target.value);
+        setMessage(
+            message === ""
+                ? e.target.value.trim()
+                : e.target.value
+        );
     }, [message]);
     const classes = useStyles();
     return (

@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, makeStyles, Theme } from "@material-ui/core";
+import { Box, makeStyles, TextField, Theme } from "@material-ui/core";
 import format from 'date-fns/format';
 import isToday from "date-fns/isToday";
+import SearchIcon from '@material-ui/icons/Search';
 
 import { DialogItem } from "./DialogItem";
 import { IMessage, MessageStatus } from "../Chat/Messages/Messages";
@@ -23,7 +24,7 @@ const dialogs: IDialog[] = [
                 id: Math.random().toString(),
 
                 avatar: null,
-                username: "Kamil Salimli",
+                username: "Henry Jaguar",
                 isAuthorOnline: false
             }
         }
@@ -67,6 +68,36 @@ const useStyles = makeStyles((theme: Theme) => (
             maxHeight: "100%",
             borderRight: "1px solid #d0d0d0",
             overflowY: "auto"
+        },
+        textFieldContainer: {
+            padding: theme.spacing(1),
+            position: "relative"
+        },
+        textField: {
+            width: "100%",
+            "& *::before,& *::after": {
+                display: "none"
+            },
+            "& input": {
+                width: "100%",
+                fontSize: "0.9rem",
+                padding: theme.spacing(1),
+                paddingLeft: theme.spacing(2),
+                paddingRight: theme.spacing(4),
+                borderRadius: theme.shape.borderRadius * 2,
+                color: theme.palette.secondary.main,
+                border: "1px solid #c6c6c6",
+                "&:focus": {
+                    boxShadow: `0 0 8px 1px #c6c6c6`,
+                }
+            },
+        },
+        searchIcon: {
+            position: "absolute",
+            top: "50%",
+            right: "0",
+            marginRight: theme.spacing(2),
+            transform: "translateY(-50%)",
         }
     }
 ));
@@ -74,15 +105,39 @@ const useStyles = makeStyles((theme: Theme) => (
 
 export const Dialogs: React.FC = () => {
     const classes = useStyles();
-    return (
-        <Box className={classes.container}> {
-            dialogs.map((dialog) =>
-                <DialogItem
-                    key={dialog.id}
-                    dialog={dialog}
-                    ownId={"1"} />
+    const [searchValue, setSearchValue] = React.useState<string>("");
+    const [filtered, setFiltered] = React.useState<IDialog[]>(dialogs);
+
+    React.useEffect(() => {
+        console.log(searchValue);
+        setFiltered(
+            dialogs.filter((dialog) => (
+                dialog.lastMessage.author.username
+                    .toLowerCase()
+                    .indexOf(searchValue.toLowerCase()) !== -1)
             )
-        }
+        );
+    }, [searchValue])
+
+    return (
+        <Box className={classes.container}>
+            <Box className={classes.textFieldContainer}>
+                <TextField
+                    value={searchValue}
+                    onChange={e => setSearchValue(e.target.value)}
+                    className={classes.textField}
+                    placeholder="Search chats"
+                />
+                <SearchIcon color="disabled" fontSize="small" className={classes.searchIcon} />
+            </Box>
+            {
+                filtered.map((dialog) =>
+                    <DialogItem
+                        key={dialog.id}
+                        dialog={dialog}
+                        ownId={"1"} />
+                )
+            }
         </Box>
     );
 }
