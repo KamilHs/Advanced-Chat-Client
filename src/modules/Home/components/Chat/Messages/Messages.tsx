@@ -33,7 +33,7 @@ const messages: IMessage[] = [
             id: Math.random().toString(),
             username: "Kamil Salimli",
             isAuthorOnline: false,
-            avatar: "https://png.pngtree.com/png-vector/20190704/ourmid/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg"
+            avatar: null
         },
         date: format(new Date(1611676402437 - 10000000), "HH:mm"),
         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, illum ",
@@ -45,7 +45,7 @@ const messages: IMessage[] = [
             id: "1",
             username: "Kamil Salimli",
             isAuthorOnline: true,
-            avatar: "https://png.pngtree.com/png-vector/20190704/ourmid/pngtree-businessman-user-avatar-free-vector-png-image_1538405.jpg"
+            avatar: null
         },
         date: format(new Date(1611676402437 - 10000000), "HH:mm"),
         content: "Thanks, I'm fine, and you?",

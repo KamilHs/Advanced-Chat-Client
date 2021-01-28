@@ -2,6 +2,8 @@ import React from "react";
 import { makeStyles, Theme, Typography, Box, Avatar } from "@material-ui/core";
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
+
+import { stringToColor, getContrastColor } from "../../../../../utils/color";
 import { IMessage, MessageStatus } from "./Messages";
 
 interface IProp {
@@ -80,6 +82,11 @@ const useStyles = makeStyles((theme: Theme) => (
 
 export const Message: React.FC<IProp> = ({ message, ownId }) => {
     const classes = useStyles();
+    let bgColor: string = message.author.avatar === null
+        ? stringToColor(message.author.username)
+        : "";
+
+
     return (
         <Box className={[classes.message, message.author.id === ownId
             ? classes.ownMessage
@@ -91,8 +98,20 @@ export const Message: React.FC<IProp> = ({ message, ownId }) => {
                     ? classes.ownAvatarContainer
                     : classes.notOwnAvatarContainer].join(" ")}>
                     {message.author.avatar
-                        ? <Avatar className={classes.avatar} src={message.author.avatar} alt={message.author.username} />
-                        : <Avatar className={classes.avatar}>{message.author.username.charAt(0)}</Avatar>
+                        ? <Avatar
+                            className={classes.avatar}
+                            src={message.author.avatar}
+                            alt={message.author.username}
+                        />
+                        : <Avatar
+                            style={{
+                                backgroundColor: bgColor,
+                                color: getContrastColor(bgColor),
+                                fontSize: "0.9rem"
+                            }}
+                            className={classes.avatar}>
+                            {message.author.username.charAt(0)}
+                        </Avatar>
                     }
                 </Box>
                 <Box className={classes.textContainer}>
