@@ -1,11 +1,11 @@
 import React from "react";
 import { Theme, Box, makeStyles, Typography, Avatar } from "@material-ui/core"
+import { format, isToday } from "date-fns";
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
 import { stringToColor, getContrastColor } from "../../../../utils/color";
-import { IDialog } from "./Dialogs";
-import { MessageStatus } from "../Chat/Messages/Messages";
+import { IDialog, MessageStatus } from "../../../../redux/types";
 
 interface IProp {
     dialog: IDialog,
@@ -78,6 +78,8 @@ const useStyles = makeStyles((theme: Theme) => (
 
 export const DialogItem: React.FC<IProp> = ({ dialog, ownId }) => {
     const classes = useStyles();
+    let date = new Date(dialog.lastMessage.date);
+
     let bgColor: string = dialog.lastMessage.author.avatar === null
         ? stringToColor(dialog.lastMessage.author.username)
         : "";
@@ -109,7 +111,13 @@ export const DialogItem: React.FC<IProp> = ({ dialog, ownId }) => {
                         width="100%"
                     >
                         <Typography variant="body1">{dialog.lastMessage.author.username}</Typography>
-                        <Typography className={classes.date} variant="subtitle1">{dialog.lastMessage.date}</Typography>
+                        <Typography className={classes.date} variant="subtitle1">
+                            {format(date,
+                                isToday(date)
+                                    ? "HH:mm"
+                                    : "dd:MM:yyyy")
+                            }
+                        </Typography>
                     </Box>
                     <Typography noWrap className={classes.content} variant="subtitle1">
                         {dialog.lastMessage.content}

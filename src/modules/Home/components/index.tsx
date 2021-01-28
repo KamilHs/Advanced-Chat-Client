@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, makeStyles, Theme, Box } from "@material-ui/core";
 
-import { Dialogs } from "./Dialogs/Dialogs";
+import Dialogs from "./Dialogs/Dialogs";
 import { Chat } from "./Chat/Chat";
 
 const useStyles = makeStyles((theme: Theme) => ({

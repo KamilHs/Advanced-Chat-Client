@@ -1,67 +1,28 @@
 import React from "react";
 import { Box, makeStyles, TextField, Theme, Typography } from "@material-ui/core";
-import format from 'date-fns/format';
-import isToday from "date-fns/isToday";
+import { connect, ConnectedProps } from "react-redux";
 import SearchIcon from '@material-ui/icons/Search';
 import SpeakerNotesOffOutlinedIcon from '@material-ui/icons/SpeakerNotesOffOutlined';
 import LaunchIcon from '@material-ui/icons/Launch';
 
 import { DialogItem } from "./DialogItem";
-import { IMessage, MessageStatus } from "../Chat/Messages/Messages";
+import { IDialog } from "../../../../redux/types";
+import { dialogActions } from "../../../../redux/actions";
 
-export interface IDialog {
-    id: string,
-    lastMessage: IMessage,
+
+interface RootState {
+    dialogs: IDialog[]
 }
 
-const dialogs: IDialog[] = [
-    {
-        id: Math.random().toString(),
-        lastMessage: {
-            id: Math.random().toString(),
-            content: "Salam varam",
-            status: MessageStatus.seen,
-            date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
-            author: {
-                id: Math.random().toString(),
+const mapStateToProps = (state: RootState) => {
+    return { dialogs: state.dialogs }
+};
+const mapDispatch = { fetchDialogs: dialogActions.fetchDialogs };
+const connector = connect(mapStateToProps, mapDispatch);
 
-                avatar: null,
-                username: "Henry Jaguar",
-                isAuthorOnline: false
-            }
-        }
-    },
-    {
-        id: Math.random().toString(),
-        lastMessage: {
-            id: Math.random().toString(),
-            content: "Salam varaasdddddddddddsdsdsdddasdasdsadsadsadasdsadasdadasdasdadasdm",
-            status: MessageStatus.seen,
-            date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
-            author: {
-                id: Math.random().toString(),
-                avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
-                username: "Kamil Salimli",
-                isAuthorOnline: true
-            }
-        }
-    },
-    {
-        id: Math.random().toString(),
-        lastMessage: {
-            id: Math.random().toString(),
-            content: "Salam varaasdddddddddddsdsdsdddasdasdsadsadsadasdsadasdadasdasdadasdm",
-            status: MessageStatus.seen,
-            date: format(new Date(1611676402437 - 10000000), isToday(new Date(1611676402437 - 10000000)) ? "HH:mm" : "dd.MM.yyyy"),
-            author: {
-                id: "1",
-                avatar: "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg",
-                username: "Kamil Salimli",
-                isAuthorOnline: true
-            }
-        }
-    },
-];
+type PropsRedux = ConnectedProps<typeof connector>
+type Props = PropsRedux;
+
 
 const useStyles = makeStyles((theme: Theme) => (
     {
@@ -126,21 +87,28 @@ const useStyles = makeStyles((theme: Theme) => (
     }
 ));
 
-
-export const Dialogs: React.FC = () => {
+const Dialogs: React.FC<Props> = ({ dialogs, fetchDialogs }) => {
     const classes = useStyles();
     const [searchValue, setSearchValue] = React.useState<string>("");
     const [filtered, setFiltered] = React.useState<IDialog[]>(dialogs);
 
+    const handleSubmit = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value);
+        setFiltered(dialogs.filter((dialog) => (
+            dialog.lastMessage.author.username
+                .toLowerCase()
+                .indexOf(e.target.value.toLowerCase()) !== -1)
+        ))
+    }, [dialogs])
+
     React.useEffect(() => {
-        setFiltered(
-            dialogs.filter((dialog) => (
-                dialog.lastMessage.author.username
-                    .toLowerCase()
-                    .indexOf(searchValue.toLowerCase()) !== -1)
-            )
-        );
-    }, [searchValue])
+        if (dialogs.length === 0) {
+            fetchDialogs();
+        }
+        else {
+            setFiltered(dialogs);
+        }
+    }, [dialogs, fetchDialogs]);
 
     return (
         <Box className={classes.container}>
@@ -148,7 +116,7 @@ export const Dialogs: React.FC = () => {
                 <Box className={classes.textFieldContainer}>
                     <TextField
                         value={searchValue}
-                        onChange={e => setSearchValue(e.target.value)}
+                        onChange={handleSubmit}
                         className={classes.textField}
                         placeholder="Search chat"
                     />
@@ -172,3 +140,5 @@ export const Dialogs: React.FC = () => {
         </Box>
     );
 }
+
+export default connector(Dialogs);

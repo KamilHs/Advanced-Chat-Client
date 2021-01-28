@@ -1,31 +1,9 @@
 import React from "react";
 import { Box, makeStyles, Theme, Typography } from "@material-ui/core";
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
-import { format } from "date-fns";
 
+import { IMessage, MessageStatus } from "../../../../../redux/types";
 import { Message } from "./MessageItem";
-
-export enum MessageStatus {
-    sent = "Sent",
-    received = "Received",
-    seen = "Seen",
-}
-
-export interface IAuthor {
-    id: string,
-    avatar: string | null,
-    username: string,
-    isAuthorOnline: boolean
-
-}
-
-export interface IMessage {
-    id: string,
-    author: IAuthor,
-    date: string,
-    content: string | File,
-    status: MessageStatus
-}
 
 const messages: IMessage[] = [
     {
@@ -36,7 +14,7 @@ const messages: IMessage[] = [
             isAuthorOnline: false,
             avatar: null
         },
-        date: format(new Date(1611676402437 - 10000000), "HH:mm"),
+        date: new Date(1611676402437 - 10000000),
         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, illum ",
         status: MessageStatus.seen
     },
@@ -48,7 +26,7 @@ const messages: IMessage[] = [
             isAuthorOnline: true,
             avatar: null
         },
-        date: format(new Date(1611676402437 - 10000000), "HH:mm"),
+        date: new Date(1611676402437 - 10000000),
         content: "Thanks, I'm fine, and you?",
         status: MessageStatus.seen
     }

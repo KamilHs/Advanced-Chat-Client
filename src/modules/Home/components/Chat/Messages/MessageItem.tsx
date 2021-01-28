@@ -1,10 +1,11 @@
 import React from "react";
 import { makeStyles, Theme, Typography, Box, Avatar } from "@material-ui/core";
+import { format } from "date-fns";
 import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
 import { stringToColor, getContrastColor } from "../../../../../utils/color";
-import { IMessage, MessageStatus } from "./Messages";
+import { IMessage, MessageStatus } from "../../../../../redux/types";
 
 interface IProp {
     message: IMessage;
@@ -136,7 +137,7 @@ export const Message: React.FC<IProp> = ({ message, ownId }) => {
                         <Typography className={[classes.date, message.author.id === ownId
                             ? classes.ownDate
                             : classes.notOwnDate].join(" ")} variant="subtitle1">
-                            {message.date}
+                            {format(message.date, "HH:mm")}
                         </Typography>
                     </Box>
                 </Box>
