@@ -8,14 +8,10 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import { DialogItem } from "./DialogItem";
 import { IDialog } from "../../../../redux/types";
 import { dialogActions } from "../../../../redux/actions";
-
-
-interface RootState {
-    dialogs: IDialog[]
-}
+import { RootState } from "../../../../redux/store";
 
 const mapStateToProps = (state: RootState) => {
-    return { dialogs: state.dialogs }
+    return { ...state.dialog };
 };
 const mapDispatch = { fetchDialogs: dialogActions.fetchDialogs };
 const connector = connect(mapStateToProps, mapDispatch);
@@ -87,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) => (
     }
 ));
 
-const Dialogs: React.FC<Props> = ({ dialogs, fetchDialogs }) => {
+const Dialogs: React.FC<Props> = ({ dialogs, selectedDialog, fetchDialogs }) => {
     const classes = useStyles();
     const [searchValue, setSearchValue] = React.useState<string>("");
     const [filtered, setFiltered] = React.useState<IDialog[]>(dialogs);

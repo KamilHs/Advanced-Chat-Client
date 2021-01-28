@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import dialogsReducer from "./dialog";
+import dialogReducer from "./dialog";
 
 export default combineReducers({
-    dialogs: dialogsReducer
+    dialog: dialogReducer,
 })

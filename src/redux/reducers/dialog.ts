@@ -1,11 +1,24 @@
-import { DialogActionTypes, SET_DIALOGS, IDialog } from "../types";
+import { IDialogState, DialogsActionTypes, SET_DIALOGS, SET_SELECTED_DIALOG } from "../types";
 
-const initialState: IDialog[] = [];
+const initialState: IDialogState = {
+    dialogs: [],
+    selectedDialog: null
+}
 
-const reducer = (state: IDialog[] = initialState, action: DialogActionTypes): IDialog[] => {
+initialState.dialogs = [];
+
+const reducer = (state: IDialogState = initialState, action: DialogsActionTypes): IDialogState => {
     switch (action.type) {
         case SET_DIALOGS:
-            return [...action.payload];
+            return {
+                ...state,
+                dialogs: action.payload
+            }
+        case SET_SELECTED_DIALOG:
+            return {
+                ...state,
+                selectedDialog: action.payload
+            }
         default:
             return state;
     }

@@ -2,14 +2,14 @@ import { ThunkAction } from "redux-thunk";
 
 import { dialogApi } from "../../utils/api";
 import { RootState } from "../store";
-import { DialogActionTypes, IDialog, SET_DIALOGS } from "../types";
+import { DialogsActionTypes, IDialog, SET_DIALOGS } from "../types";
 
 const actions = {
-    fetchDialogs: (): ThunkAction<void, RootState, unknown, DialogActionTypes> => async dispatch => {
+    fetchDialogs: (): ThunkAction<void, RootState, unknown, DialogsActionTypes> => async dispatch => {
         const res = await dialogApi.getAll();
         dispatch(actions.setDialogs(res.data));
     },
-    setDialogs: (dialogs: IDialog[]): DialogActionTypes => (
+    setDialogs: (dialogs: IDialog[]): DialogsActionTypes => (
         {
             type: SET_DIALOGS,
             payload: dialogs
