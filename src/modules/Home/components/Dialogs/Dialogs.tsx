@@ -13,7 +13,10 @@ import { RootState } from "../../../../redux/store";
 const mapStateToProps = (state: RootState) => {
     return { ...state.dialog };
 };
-const mapDispatch = { fetchDialogs: dialogActions.fetchDialogs };
+const mapDispatch = {
+    fetchDialogs: dialogActions.fetchDialogs,
+    setSelectedDialog: dialogActions.setSelectedDialog
+};
 const connector = connect(mapStateToProps, mapDispatch);
 
 type PropsRedux = ConnectedProps<typeof connector>
