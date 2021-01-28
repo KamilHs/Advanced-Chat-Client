@@ -4,6 +4,7 @@ import format from 'date-fns/format';
 import isToday from "date-fns/isToday";
 import SearchIcon from '@material-ui/icons/Search';
 import SpeakerNotesOffOutlinedIcon from '@material-ui/icons/SpeakerNotesOffOutlined';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 import { DialogItem } from "./DialogItem";
 import { IMessage, MessageStatus } from "../Chat/Messages/Messages";
@@ -70,8 +71,13 @@ const useStyles = makeStyles((theme: Theme) => (
             borderRight: "1px solid #d0d0d0",
             overflowY: "auto"
         },
-        textFieldContainer: {
+        topSectionContainer: {
+            display: "flex",
+            alignItems: "center",
             padding: theme.spacing(1),
+        },
+        textFieldContainer: {
+            flexGrow: 2,
             position: "relative"
         },
         textField: {
@@ -83,8 +89,8 @@ const useStyles = makeStyles((theme: Theme) => (
                 width: "100%",
                 fontSize: "0.9rem",
                 padding: theme.spacing(1),
-                paddingLeft: theme.spacing(2),
-                paddingRight: theme.spacing(4),
+                paddingRight: theme.spacing(2),
+                paddingLeft: theme.spacing(4),
                 borderRadius: theme.shape.borderRadius * 2,
                 color: theme.palette.secondary.main,
                 border: "1px solid #c6c6c6",
@@ -96,9 +102,13 @@ const useStyles = makeStyles((theme: Theme) => (
         searchIcon: {
             position: "absolute",
             top: "50%",
-            right: "0",
-            marginRight: theme.spacing(2),
+            left: "0",
+            marginLeft: theme.spacing(1),
             transform: "translateY(-50%)",
+        },
+        launchIcon: {
+            marginLeft: theme.spacing(1),
+            cursor: "pointer"
         },
         noDialogNotification: {
             marginTop: theme.spacing(2),
@@ -134,14 +144,17 @@ export const Dialogs: React.FC = () => {
 
     return (
         <Box className={classes.container}>
-            <Box className={classes.textFieldContainer}>
-                <TextField
-                    value={searchValue}
-                    onChange={e => setSearchValue(e.target.value)}
-                    className={classes.textField}
-                    placeholder="Search chats"
-                />
-                <SearchIcon color="disabled" fontSize="small" className={classes.searchIcon} />
+            <Box className={classes.topSectionContainer}>
+                <Box className={classes.textFieldContainer}>
+                    <TextField
+                        value={searchValue}
+                        onChange={e => setSearchValue(e.target.value)}
+                        className={classes.textField}
+                        placeholder="Search chat"
+                    />
+                    <SearchIcon color="disabled" fontSize="small" className={classes.searchIcon} />
+                </Box>
+                <LaunchIcon color="disabled" className={classes.launchIcon} />
             </Box>
             {
                 filtered.length !== 0
