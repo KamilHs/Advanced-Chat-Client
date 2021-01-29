@@ -5,8 +5,6 @@ const initialState: IDialogState = {
     selectedDialog: null
 }
 
-initialState.dialogs = [];
-
 const reducer = (state: IDialogState = initialState, action: DialogsActionTypes): IDialogState => {
     switch (action.type) {
         case SET_DIALOGS:
