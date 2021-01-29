@@ -2,6 +2,7 @@ import React from "react";
 import { Box, makeStyles, TextField, Theme, Typography } from "@material-ui/core";
 import { connect, ConnectedProps } from "react-redux";
 import SearchIcon from '@material-ui/icons/Search';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import SpeakerNotesOffOutlinedIcon from '@material-ui/icons/SpeakerNotesOffOutlined';
 import LaunchIcon from '@material-ui/icons/Launch';
 
@@ -82,14 +83,20 @@ const useStyles = makeStyles((theme: Theme) => (
         noDialogNotificationText: {
             marginTop: theme.spacing(1),
             color: "#b9b9b9"
+        },
+        spinner: {
+            display: "block",
+            margin: "0 auto",
+            marginTop: theme.spacing(2)
         }
     }
 ));
 
-const Dialogs: React.FC<Props> = ({ dialogs, selectedDialogId, fetchDialogs, setSelectedDialogId }) => {
+const Dialogs: React.FC<Props> = ({ dialogs, selectedDialogId, fetchDialogs, setSelectedDialogId, isLoading }) => {
     const classes = useStyles();
     const [searchValue, setSearchValue] = React.useState<string>("");
     const [filtered, setFiltered] = React.useState<IDialog[]>(dialogs);
+    console.log(isLoading);
 
     const handleSubmit = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -124,19 +131,21 @@ const Dialogs: React.FC<Props> = ({ dialogs, selectedDialogId, fetchDialogs, set
                 <LaunchIcon color="disabled" className={classes.launchIcon} />
             </Box>
             {
-                filtered.length !== 0
-                    ? filtered.map((dialog) =>
-                        <DialogItem
-                            key={dialog.id}
-                            dialog={dialog}
-                            setSelectedDialogId={setSelectedDialogId}
-                            ownId={"1"}
-                            isSelected={selectedDialogId === dialog.id} />
-                    )
-                    : <Box className={classes.noDialogNotification}>
-                        <SpeakerNotesOffOutlinedIcon color="disabled" className={classes.noDialogNotificationIcon} />
-                        <Typography variant="body1" className={classes.noDialogNotificationText}>No Dialog Found</Typography>
-                    </Box>
+                isLoading
+                    ? <CircularProgress color="primary" className={classes.spinner} />
+                    : filtered.length !== 0
+                        ? filtered.map((dialog) =>
+                            <DialogItem
+                                key={dialog.id}
+                                dialog={dialog}
+                                setSelectedDialogId={setSelectedDialogId}
+                                ownId={"1"}
+                                isSelected={selectedDialogId === dialog.id} />
+                        )
+                        : <Box className={classes.noDialogNotification}>
+                            <SpeakerNotesOffOutlinedIcon color="disabled" className={classes.noDialogNotificationIcon} />
+                            <Typography variant="body1" className={classes.noDialogNotificationText}>No Dialog Found</Typography>
+                        </Box>
             }
         </Box>
     );

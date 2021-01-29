@@ -1,8 +1,9 @@
-import { IDialogState, DialogsActionTypes, SET_DIALOGS, SET_SELECTED_DIALOG_ID } from "../types";
+import { IDialogState, DialogsActionTypes, SET_DIALOGS, SET_SELECTED_DIALOG_ID, SET_DIALOGS_IS_LOADING } from "../types";
 
 const initialState: IDialogState = {
     dialogs: [],
-    selectedDialogId: null
+    selectedDialogId: null,
+    isLoading: false,
 }
 
 const reducer = (state: IDialogState = initialState, action: DialogsActionTypes): IDialogState => {
@@ -10,12 +11,18 @@ const reducer = (state: IDialogState = initialState, action: DialogsActionTypes)
         case SET_DIALOGS:
             return {
                 ...state,
-                dialogs: action.payload
+                dialogs: action.payload,
+                isLoading: false
             }
         case SET_SELECTED_DIALOG_ID:
             return {
                 ...state,
-                selectedDialogId: action.payload
+                selectedDialogId: action.payload,
+            }
+        case SET_DIALOGS_IS_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload
             }
         default:
             return state;

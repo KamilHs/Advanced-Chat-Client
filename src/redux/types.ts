@@ -1,8 +1,11 @@
 export const FETCH_DIALOGS = "FETCH_DIALOGS";
 export const SET_DIALOGS = "SET_DIALOGS";
+export const SET_DIALOGS_IS_LOADING = "SET_DIALOGS_IS_LOADING";
+export const SET_SELECTED_DIALOG_ID = "SET_SELECTED_DIALOG_ID";
+
 export const FETCH_MESSAGES_BY_ID = "FETCH_MESSAGES_BY_ID";
 export const SET_MESSAGES = "SET_MESSAGES";
-export const SET_SELECTED_DIALOG_ID = "SET_SELECTED_DIALOG_ID";
+export const SET_MESSAGES_IS_LOADING = "SET_MESSAGES_IS_LOADING";
 
 export enum MessageStatus {
     sent = "Sent",
@@ -42,21 +45,33 @@ interface ISetSelectedDialogId {
     payload: string | null
 }
 
-export interface IDialogState {
-    selectedDialogId: string | null,
-    dialogs: IDialog[]
+interface ISetDialogsIsLoading {
+    type: typeof SET_DIALOGS_IS_LOADING,
+    payload: boolean
 }
 
-export type DialogsActionTypes = ISetDialogs | ISetSelectedDialogId
+export interface IDialogState {
+    selectedDialogId: string | null,
+    dialogs: IDialog[],
+    isLoading: boolean
+}
 
-export interface ISetMessages {
+export type DialogsActionTypes = ISetDialogs | ISetSelectedDialogId | ISetDialogsIsLoading
+
+interface ISetMessages {
     type: typeof SET_MESSAGES,
     payload: IMessage[]
 }
 
-export interface IMessageState {
-    messages: IMessage[]
+interface ISetMessagesIsLoading {
+    type: typeof SET_MESSAGES_IS_LOADING,
+    payload: boolean
 }
 
-export type MessagesActionTypes = ISetMessages
+export interface IMessageState {
+    messages: IMessage[],
+    isLoading: boolean
+}
+
+export type MessagesActionTypes = ISetMessages | ISetMessagesIsLoading
 
