@@ -47,9 +47,10 @@ const useStyles = makeStyles((theme: Theme) => (
 const Messages: React.FC<Props> = ({ messages, selectedDialogId, fetchMessagesById }) => {
     const classes = useStyles();
     React.useEffect(() => {
-        if (selectedDialogId !== null)
+        if (selectedDialogId !== null) {
             fetchMessagesById(selectedDialogId);
-    }, [selectedDialogId]);
+        }
+    }, [selectedDialogId, fetchMessagesById]);
     return (
         <Box className={classes.container}>
             {
