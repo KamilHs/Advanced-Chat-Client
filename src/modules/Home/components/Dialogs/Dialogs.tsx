@@ -15,7 +15,7 @@ const mapStateToProps = (state: RootState) => {
 };
 const mapDispatch = {
     fetchDialogs: dialogActions.fetchDialogs,
-    setSelectedDialog: dialogActions.setSelectedDialog
+    setSelectedDialogId: dialogActions.setSelectedDialogId
 };
 const connector = connect(mapStateToProps, mapDispatch);
 

@@ -1,6 +1,6 @@
 export const FETCH_DIALOGS = "FETCH_DIALOGS";
 export const SET_DIALOGS = "SET_DIALOGS";
-export const SET_SELECTED_DIALOG = "SET_SELECTED_DIALOG";
+export const SET_SELECTED_DIALOG_ID = "SET_SELECTED_DIALOG_ID";
 
 export enum MessageStatus {
     sent = "Sent",
@@ -34,8 +34,8 @@ interface ISetDialogs {
     payload: IDialog[]
 }
 
-interface ISetSelectedDialog {
-    type: typeof SET_SELECTED_DIALOG,
+interface ISetSelectedDialogId {
+    type: typeof SET_SELECTED_DIALOG_ID,
     payload: string
 }
 
@@ -44,6 +44,6 @@ export interface IDialogState {
     dialogs: IDialog[]
 }
 
-export type DialogsActionTypes = ISetDialogs | ISetSelectedDialog
+export type DialogsActionTypes = ISetDialogs | ISetSelectedDialogId
 
 

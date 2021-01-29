@@ -1,4 +1,4 @@
-import { IDialogState, DialogsActionTypes, SET_DIALOGS, SET_SELECTED_DIALOG } from "../types";
+import { IDialogState, DialogsActionTypes, SET_DIALOGS, SET_SELECTED_DIALOG_ID } from "../types";
 
 const initialState: IDialogState = {
     dialogs: [],
@@ -14,7 +14,7 @@ const reducer = (state: IDialogState = initialState, action: DialogsActionTypes)
                 ...state,
                 dialogs: action.payload
             }
-        case SET_SELECTED_DIALOG:
+        case SET_SELECTED_DIALOG_ID:
             return {
                 ...state,
                 selectedDialog: action.payload
