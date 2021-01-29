@@ -1,36 +1,25 @@
 import React from "react";
+import { connect, ConnectedProps } from "react-redux";
 import { Box, makeStyles, Theme, Typography } from "@material-ui/core";
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 
-import { IMessage, MessageStatus } from "../../../../../redux/types";
 import { Message } from "./MessageItem";
+import { messageActions } from "../../../../../redux/actions";
+import { RootState } from "../../../../../redux/store";
 
-const messages: IMessage[] = [
-    {
-        id: Math.random().toString(),
-        author: {
-            id: Math.random().toString(),
-            username: "Kamil Salimli",
-            isAuthorOnline: false,
-            avatar: null
-        },
-        date: new Date(1611676402437 - 10000000),
-        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, illum ",
-        status: MessageStatus.seen
-    },
-    {
-        id: Math.random().toString(),
-        author: {
-            id: "1",
-            username: "Kamil Salimli",
-            isAuthorOnline: true,
-            avatar: null
-        },
-        date: new Date(1611676402437 - 10000000),
-        content: "Thanks, I'm fine, and you?",
-        status: MessageStatus.seen
+const mapStateToProps = (state: RootState) => {
+    return {
+        selectedDialogId: state.dialog.selectedDialog,
+        ...state.message
     }
-];
+}
+const mapDispatch = {
+    fetchMessagesById: messageActions.fetchMessagesById
+}
+const connector = connect(mapStateToProps, mapDispatch);
+
+type PropsRedux = ConnectedProps<typeof connector>;
+type Props = PropsRedux
 
 const useStyles = makeStyles((theme: Theme) => (
     {
@@ -55,21 +44,29 @@ const useStyles = makeStyles((theme: Theme) => (
     }
 ));
 
-export const Messages: React.FC = () => {
+const Messages: React.FC<Props> = ({ messages, selectedDialogId, fetchMessagesById }) => {
     const classes = useStyles();
+    React.useEffect(() => {
+        if (selectedDialogId !== null)
+            fetchMessagesById(selectedDialogId);
+    }, [selectedDialogId]);
     return (
         <Box className={classes.container}>
             {
-                messages.length > 0
+                selectedDialogId !== null && messages.length > 0
                     ? messages.map((message) => (
                         <Message key={message.id} message={message} ownId={"1"} />
                     ))
                     :
                     <Box className={classes.noChatNotification}>
                         <ChatBubbleOutlineOutlinedIcon color="disabled" className={classes.noChatNotificationIcon} />
-                        <Typography className={classes.noChatNotificationText} variant="body1">Choose a chat</Typography>
+                        <Typography className={classes.noChatNotificationText} variant="body1">
+                            {selectedDialogId === null ? "Choose a chat" : "No messages yet"}
+                        </Typography>
                     </Box>
             }
         </Box>
     )
 }
+
+export default connector(Messages)

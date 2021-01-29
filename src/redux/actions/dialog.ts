@@ -9,7 +9,7 @@ const actions = {
         const res = await dialogApi.getAll();
         dispatch(actions.setDialogs(res.data));
     },
-    setSelectedDialogId: (id: string): DialogsActionTypes => (
+    setSelectedDialogId: (id: string | null): DialogsActionTypes => (
         {
             type: SET_SELECTED_DIALOG_ID,
             payload: id

@@ -83,6 +83,8 @@ const useStyles = makeStyles((theme: Theme) => (
 
 export const Message: React.FC<IProp> = ({ message, ownId }) => {
     const classes = useStyles();
+    let date = new Date(message.date);
+
     let bgColor: string = message.author.avatar === null
         ? stringToColor(message.author.username)
         : "";
@@ -137,7 +139,7 @@ export const Message: React.FC<IProp> = ({ message, ownId }) => {
                         <Typography className={[classes.date, message.author.id === ownId
                             ? classes.ownDate
                             : classes.notOwnDate].join(" ")} variant="subtitle1">
-                            {format(message.date, "HH:mm")}
+                            {format(date, "HH:mm")}
                         </Typography>
                     </Box>
                 </Box>

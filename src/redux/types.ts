@@ -1,5 +1,7 @@
 export const FETCH_DIALOGS = "FETCH_DIALOGS";
 export const SET_DIALOGS = "SET_DIALOGS";
+export const FETCH_MESSAGES_BY_ID = "FETCH_MESSAGES_BY_ID";
+export const SET_MESSAGES = "SET_MESSAGES";
 export const SET_SELECTED_DIALOG_ID = "SET_SELECTED_DIALOG_ID";
 
 export enum MessageStatus {
@@ -20,6 +22,7 @@ export interface IMessage {
     id: string,
     author: IAuthor,
     date: Date,
+    dialogId: string,
     content: string | File,
     status: MessageStatus
 }
@@ -36,7 +39,7 @@ interface ISetDialogs {
 
 interface ISetSelectedDialogId {
     type: typeof SET_SELECTED_DIALOG_ID,
-    payload: string
+    payload: string | null
 }
 
 export interface IDialogState {
@@ -46,4 +49,14 @@ export interface IDialogState {
 
 export type DialogsActionTypes = ISetDialogs | ISetSelectedDialogId
 
+export interface ISetMessages {
+    type: typeof SET_MESSAGES,
+    payload: IMessage[]
+}
+
+export interface IMessageState {
+    messages: IMessage[]
+}
+
+export type MessagesActionTypes = ISetMessages
 

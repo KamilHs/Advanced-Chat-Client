@@ -5,10 +5,15 @@ import DoneIcon from '@material-ui/icons/Done';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
 import { stringToColor, getContrastColor } from "../../../../utils/color";
-import { IDialog, MessageStatus } from "../../../../redux/types";
+import { IDialog, MessageStatus, DialogsActionTypes } from "../../../../redux/types";
+
+interface IDialogSelectHandler {
+    (id: string | null): DialogsActionTypes
+}
 
 interface IProp {
     dialog: IDialog,
+    setSelectedDialogId: IDialogSelectHandler,
     ownId: string
 }
 
@@ -76,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => (
 ));
 
 
-export const DialogItem: React.FC<IProp> = ({ dialog, ownId }) => {
+export const DialogItem: React.FC<IProp> = ({ dialog, ownId, setSelectedDialogId }) => {
     const classes = useStyles();
     let date = new Date(dialog.lastMessage.date);
 
@@ -84,7 +89,7 @@ export const DialogItem: React.FC<IProp> = ({ dialog, ownId }) => {
         ? stringToColor(dialog.lastMessage.author.username)
         : "";
     return (
-        <Box className={classes.dialog}>
+        <Box onClick={e => setSelectedDialogId(dialog.id)} className={classes.dialog}>
             <Box className={classes.wrapper}>
                 <Box className={classes.avatarContainer}>
                     {dialog.lastMessage.author.avatar !== null

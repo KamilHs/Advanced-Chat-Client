@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, Theme, Box } from "@material-ui/core";
 
-import { Messages } from "./Messages/Messages";
+import Messages from "./Messages/Messages";
 import { ChatInput } from "./ChatInput/ChatInput";
 import { ChatHeader } from "./ChatHeader/ChatHeader";
 
@@ -21,7 +21,7 @@ export const Chat: React.FC = () => {
     return (
         <Box className={classes.container}>
             <ChatHeader />
-            <Messages/>
+            <Messages />
             <ChatInput />
         </Box>
     )
