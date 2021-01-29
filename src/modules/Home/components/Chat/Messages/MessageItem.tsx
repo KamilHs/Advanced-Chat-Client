@@ -84,11 +84,9 @@ const useStyles = makeStyles((theme: Theme) => (
 export const Message: React.FC<IProp> = ({ message, ownId }) => {
     const classes = useStyles();
     let date = new Date(message.date);
-
     let bgColor: string = message.author.avatar === null
         ? stringToColor(message.author.username)
         : "";
-
 
     return (
         <Box className={[classes.message, message.author.id === ownId

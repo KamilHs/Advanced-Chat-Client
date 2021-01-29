@@ -14,7 +14,8 @@ interface IDialogSelectHandler {
 interface IProp {
     dialog: IDialog,
     setSelectedDialogId: IDialogSelectHandler,
-    ownId: string
+    ownId: string,
+    isSelected: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) => (
@@ -24,8 +25,11 @@ const useStyles = makeStyles((theme: Theme) => (
             cursor: "pointer",
             borderBottom: "1px solid #e9e9e9",
             "&:hover": {
-                backgroundColor: "#e8e8e8"
+                backgroundColor: "#eeeeee"
             }
+        },
+        selectedDialog: {
+            backgroundColor: "#e8e8e8"
         },
         wrapper: {
             width: "100%",
@@ -81,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) => (
 ));
 
 
-export const DialogItem: React.FC<IProp> = ({ dialog, ownId, setSelectedDialogId }) => {
+export const DialogItem: React.FC<IProp> = ({ dialog, ownId, setSelectedDialogId, isSelected }) => {
     const classes = useStyles();
     let date = new Date(dialog.lastMessage.date);
 
@@ -89,7 +93,7 @@ export const DialogItem: React.FC<IProp> = ({ dialog, ownId, setSelectedDialogId
         ? stringToColor(dialog.lastMessage.author.username)
         : "";
     return (
-        <Box onClick={e => setSelectedDialogId(dialog.id)} className={classes.dialog}>
+        <Box onClick={e => setSelectedDialogId(dialog.id)} className={[classes.dialog, isSelected ? classes.selectedDialog : null].join(" ")}>
             <Box className={classes.wrapper}>
                 <Box className={classes.avatarContainer}>
                     {dialog.lastMessage.author.avatar !== null

@@ -9,7 +9,7 @@ import { RootState } from "../../../../../redux/store";
 
 const mapStateToProps = (state: RootState) => {
     return {
-        selectedDialogId: state.dialog.selectedDialog,
+        selectedDialogId: state.dialog.selectedDialogId,
         ...state.message
     }
 }

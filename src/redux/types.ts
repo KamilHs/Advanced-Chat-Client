@@ -43,7 +43,7 @@ interface ISetSelectedDialogId {
 }
 
 export interface IDialogState {
-    selectedDialog: string | null,
+    selectedDialogId: string | null,
     dialogs: IDialog[]
 }
 

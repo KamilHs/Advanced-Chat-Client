@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) => (
     }
 ));
 
-const Dialogs: React.FC<Props> = ({ dialogs, selectedDialog, fetchDialogs, setSelectedDialogId }) => {
+const Dialogs: React.FC<Props> = ({ dialogs, selectedDialogId, fetchDialogs, setSelectedDialogId }) => {
     const classes = useStyles();
     const [searchValue, setSearchValue] = React.useState<string>("");
     const [filtered, setFiltered] = React.useState<IDialog[]>(dialogs);
@@ -130,7 +130,8 @@ const Dialogs: React.FC<Props> = ({ dialogs, selectedDialog, fetchDialogs, setSe
                             key={dialog.id}
                             dialog={dialog}
                             setSelectedDialogId={setSelectedDialogId}
-                            ownId={"1"} />
+                            ownId={"1"}
+                            isSelected={selectedDialogId === dialog.id} />
                     )
                     : <Box className={classes.noDialogNotification}>
                         <SpeakerNotesOffOutlinedIcon color="disabled" className={classes.noDialogNotificationIcon} />

@@ -2,7 +2,7 @@ import { IDialogState, DialogsActionTypes, SET_DIALOGS, SET_SELECTED_DIALOG_ID }
 
 const initialState: IDialogState = {
     dialogs: [],
-    selectedDialog: null
+    selectedDialogId: null
 }
 
 const reducer = (state: IDialogState = initialState, action: DialogsActionTypes): IDialogState => {
@@ -15,7 +15,7 @@ const reducer = (state: IDialogState = initialState, action: DialogsActionTypes)
         case SET_SELECTED_DIALOG_ID:
             return {
                 ...state,
-                selectedDialog: action.payload
+                selectedDialogId: action.payload
             }
         default:
             return state;
