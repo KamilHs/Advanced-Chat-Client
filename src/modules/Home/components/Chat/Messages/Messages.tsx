@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme: Theme) => (
         container: {
             position: "relative",
             padding: theme.spacing(2),
-            flexGrow: 2
+            flexGrow: 2,
+            flex: "1 1 auto",
+            overflowY: "auto",
+            height: "0px",
         },
         noChatNotification: {
             textAlign: "center",
@@ -55,13 +58,18 @@ const useStyles = makeStyles((theme: Theme) => (
 
 const Messages: React.FC<Props> = ({ messages, selectedDialogId, fetchMessagesById, isLoading }) => {
     const classes = useStyles();
+    const messagesRef = React.useRef<HTMLDivElement>(null);
     React.useEffect(() => {
         if (selectedDialogId !== null) {
             fetchMessagesById(selectedDialogId);
         }
     }, [selectedDialogId, fetchMessagesById]);
+    React.useEffect(() =>{
+        if(messagesRef.current)
+            messagesRef.current.scrollIntoView({behavior:"smooth"});
+    }, [messages,messagesRef]);
     return (
-        <Box className={classes.container}>
+        <Box  className={classes.container}>
             {
                 isLoading
                     ? <Box className={classes.spinnerContainer}>
@@ -79,6 +87,7 @@ const Messages: React.FC<Props> = ({ messages, selectedDialogId, fetchMessagesBy
                             </Typography>
                         </Box>
             }
+            <div ref={messagesRef}></div>
         </Box>
     )
 }
