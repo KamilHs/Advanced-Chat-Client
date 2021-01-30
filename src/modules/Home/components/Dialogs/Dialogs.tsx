@@ -96,7 +96,6 @@ const Dialogs: React.FC<Props> = ({ dialogs, selectedDialogId, fetchDialogs, set
     const classes = useStyles();
     const [searchValue, setSearchValue] = React.useState<string>("");
     const [filtered, setFiltered] = React.useState<IDialog[]>(dialogs);
-    console.log(isLoading);
 
     const handleSubmit = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
