@@ -48,32 +48,52 @@ const useStyles = makeStyles((theme: Theme) => (
         },
         camera: {
             marginRight: theme.spacing(1)
+        },
+        fileInput: {
+            display: "none"
         }
     }
 ))
 
 export const ChatInput: React.FC = () => {
     const [message, setMessage] = React.useState<string>("");
-    const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
+    const handleTextChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(
             message === ""
                 ? e.target.value.trim()
                 : e.target.value
         );
     }, [message]);
+    const handleFileOpen = React.useCallback(() => {
+        if (fileInputRef.current)
+            fileInputRef.current.click();
+    }, []);
+    const handleFileChange = React.useCallback(() => {
+        if (fileInputRef.current) {
+            console.log(fileInputRef.current.value)
+        }
+    }, []);
     const classes = useStyles();
     return (
-        <Box className={classes.container}>
+        <form className={classes.container}>
             <Box className={classes.textFieldContainer}>
-                <TextField onChange={handleChange} value={message} className={classes.textField} />
+                <TextField onChange={handleTextChange} value={message} className={classes.textField} />
                 <MoodIcon color="disabled" className={[classes.icon, classes.emojis].join(" ")} />
             </Box>
-            <CameraAltIcon color="primary" className={[classes.icon, classes.camera].join(" ")} />
+            <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                capture="camera"
+                className={classes.fileInput} 
+                onChange={handleFileChange}/>
+            <CameraAltIcon onClick={handleFileOpen} color="primary" className={[classes.icon, classes.camera].join(" ")} />
             {
                 message !== ""
                     ? <SendIcon color="primary" className={classes.icon} />
                     : <MicIcon color="primary" className={classes.icon} />
             }
-        </Box>
+        </form>
     )
 }
